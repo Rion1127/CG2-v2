@@ -64,14 +64,14 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	modelSkydome = Model::CreateFromOBJ("skydome");
 	modelGround = Model::CreateFromOBJ("ground");
-	modelFighter = Model::CreateFromOBJ("chr_sword");
+	modelFighter = Model::CreateFromOBJ("chr_sword",true);
 
 	objSkydome->SetModel(modelSkydome);
 	objGround->SetModel(modelGround);
 	objFighter->SetModel(modelFighter);
 	objFighter->SetPosition({ 1,0,0 });
 
-	modelSphere = Model::CreateFromOBJ("sphere");
+	modelSphere = Model::CreateFromOBJ("sphere",true);
 	objSphere = Object3d::Create();
 	objSphere->SetModel(modelSphere);
 	objSphere->SetPosition({ -1,1,0 });
