@@ -1,6 +1,7 @@
 #include "OBJShaderHeader.hlsli"
 
-VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOORD)
+VSOutput main(
+float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOORD)
 {
 	////右、下、奥の方向を向いたライト
  //   float3 lightdir = float3(1, -1, 1);

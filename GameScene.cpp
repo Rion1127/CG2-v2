@@ -131,7 +131,7 @@ void GameScene::Update()
 
 
 	XMFLOAT3 rot = objSphere->GetRotation();
-	rot.y += 1.0f;
+	rot.y += 0.7f;
 	objSphere->SetRotation(rot);
 	objFighter->SetRotation(rot);
 
