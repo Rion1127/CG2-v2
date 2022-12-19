@@ -13,7 +13,7 @@
 /// 形状データ
 /// </summary>
 class Mesh {
-  private: // エイリアス
+private: // エイリアス
 	// Microsoft::WRL::を省略
 	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 	// DirectX::を省略
@@ -23,7 +23,7 @@ class Mesh {
 	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 
-  public: // サブクラス
+public: // サブクラス
 	// 頂点データ構造体（テクスチャあり）
 	struct VertexPosNormalUv {
 		XMFLOAT3 pos;    // xyz座標
@@ -31,18 +31,18 @@ class Mesh {
 		XMFLOAT2 uv;     // uv座標
 	};
 
-  public: // 静的メンバ関数
+public: // 静的メンバ関数
 	/// <summary>
 	/// 静的初期化
 	/// </summary>
 	/// <param name="device">デバイス</param>
 	static void StaticInitialize(ID3D12Device* device);
 
-  private: // 静的メンバ変数
+private: // 静的メンバ変数
 	// デバイス
 	static ID3D12Device* device;
 
-  public: // メンバ関数
+public: // メンバ関数
 	/// <summary>
 	/// 名前を取得
 	/// </summary>
@@ -118,7 +118,7 @@ class Mesh {
 	/// </summary>
 	void CalculateSmoothedVertexNormals();
 
-  private: // メンバ変数
+private: // メンバ変数
 	// 名前
 	std::string name;
 	// 頂点バッファ

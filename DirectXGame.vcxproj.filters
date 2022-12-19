@@ -71,10 +71,10 @@
     <FxCompile Include="Resources\shaders\SpriteVertexShader.hlsl">
       <Filter>シェーダー ファイル</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\OBJVertexShader.hlsl">
+    <FxCompile Include="Resources\shaders\OBJPixelShader.hlsl">
       <Filter>シェーダー ファイル</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\OBJPixelShader.hlsl">
+    <FxCompile Include="Resources\shaders\OBJVertexShader.hlsl">
       <Filter>シェーダー ファイル</Filter>
     </FxCompile>
   </ItemGroup>
