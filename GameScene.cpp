@@ -3,6 +3,8 @@
 #include <cassert>
 #include <sstream>
 #include <iomanip>
+#include <sstream>
+#include <iomanip>
 
 using namespace DirectX;
 
@@ -23,6 +25,8 @@ GameScene::~GameScene()
 
 	delete modelSphere;
 	delete objSphere;
+
+	delete light;
 }
 
 void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
@@ -38,6 +42,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	Sprite::LoadTexture(debugTextTexNumber, L"Resources/debugfont.png");
 	// デバッグテキスト初期化
 	debugText.Initialize(debugTextTexNumber);
+
+	//ライト生成
+	light = Light::Create();
+	//ライト色を設定
+	light->SetLightColor({ 1,1,1 });
+	//3Dオブジェクトにライトをセット
+	Object3d::SetLight(light);
 
 	// テクスチャ読み込み
 	Sprite::LoadTexture(1, L"Resources/background.png");
@@ -79,11 +90,50 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 void GameScene::Update()
 {
+	{
+
+		//光線方向初期化				   上奥
+		static XMVECTOR lightDir = { 0,1,5,0 };
+
+		if (input->PushKey(DIK_W)) { lightDir.m128_f32[1] -= 1.0f; }
+		else if (input->PushKey(DIK_S)) { lightDir.m128_f32[1] += 1.0f; }
+		if (input->PushKey(DIK_D)) { lightDir.m128_f32[0] -= 1.0f; }
+		else if (input->PushKey(DIK_A)) { lightDir.m128_f32[0] += 1.0f; }
+
+		light->SetLightDir(lightDir);
+
+		std::ostringstream debugstr;
+		debugstr << "lightDirFactor("
+			<< std::fixed << std::setprecision(2)
+			<< lightDir.m128_f32[0] << ","
+			<< lightDir.m128_f32[1] << ","
+			<< lightDir.m128_f32[2] << ")";
+		debugText.Print(debugstr.str(), 50, 120, 1.0f);
+
+		debugstr.str("");
+		debugstr.clear();
+
+		const XMFLOAT3& cameraPos = camera->GetEye();
+		debugstr << "cameraPos"
+			<< std::fixed << std::setprecision(2)
+			<< cameraPos.x << ","
+			<< cameraPos.y << ","
+			<< cameraPos.z << ")";
+		debugText.Print(debugstr.str(), 50, 140, 1.0f);
+
+		light->Update();
+	}
 	camera->Update();
 
 	objSkydome->Update();
 	objGround->Update();
 	objFighter->Update();
+
+
+	XMFLOAT3 rot = objSphere->GetRotation();
+	rot.y += 1.0f;
+	objSphere->SetRotation(rot);
+	objFighter->SetRotation(rot);
 
 	objSphere->Update();
 
