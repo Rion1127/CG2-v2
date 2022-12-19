@@ -15,6 +15,26 @@ float4 main(VSOutput input) : SV_TARGET
 	
 	//テクスチャマッピング
     float4 texcolor = tex.Sample(smp, input.uv);
+	
+    float4 shadecolor;
+	//光沢度
+    const float shiniess = 4.0f;
+	
+    float3 eyedir = normalize(cameraPos - input.worldpos.xyz);
+	
+    float3 dotlightnormal = dot(lightcolor, input.normal);
+	
+    float3 reflect = normalize(-lightv + 2 * dotlightnormal * input.normal);
+	
+    float3 ambient = m_ambient;
+	
+    float3 diffuse = dotlightnormal * m_diffuse;
+	
+    float3 specular = pow(saturate(dot(reflect, eyedir)), shiniess) * m_specular;
+	
+    shadecolor.rgb = (ambient + diffuse + specular) * lightcolor;
+    shadecolor.a = m_alpha;
+	
 	//シェーディングによる色で描画
-    return input.color * texcolor;
+    return shadecolor * texcolor;
 }
